@@ -3,6 +3,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 
 public class GeometryApp extends JFrame {
     private CardLayout cardLayout;
@@ -11,7 +12,7 @@ public class GeometryApp extends JFrame {
     private StackPanel stackPanel; // Add the StackPanel here
 
     public GeometryApp() {
-        setTitle("Advanced Geometry App");
+        setTitle("Geometry & Stack Visualization App");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 700);
         setLocationRelativeTo(null);
@@ -24,18 +25,25 @@ public class GeometryApp extends JFrame {
         JMenu menu = new JMenu("Navigation");
 
         JMenuItem homeItem = new JMenuItem("Home");
-        JMenuItem drawItem = new JMenuItem("Draw");
-        JMenuItem stackItem = new JMenuItem("Stack Operations"); // Add Stack navigation item
+        JMenuItem drawItem = new JMenuItem("Geometry Operations");
+        JMenuItem stackItem = new JMenuItem("Stack Operations"); 
         JMenuItem settingsItem = new JMenuItem("Settings");
 
         homeItem.addActionListener(e -> cardLayout.show(mainPanel, "Home"));
-        drawItem.addActionListener(e -> cardLayout.show(mainPanel, "Draw"));
-        stackItem.addActionListener(e -> cardLayout.show(mainPanel, "Stack")); // Stack navigation action
+        drawItem.addActionListener(e -> cardLayout.show(mainPanel, "Geometry"));
+        stackItem.addActionListener(e -> cardLayout.show(mainPanel, "Stack")); 
         settingsItem.addActionListener(e -> cardLayout.show(mainPanel, "Settings"));
 
+        // Add Keyboard shortcuts
+        homeItem.setAccelerator(KeyStroke.getKeyStroke('H', InputEvent.CTRL_DOWN_MASK));
+        drawItem.setAccelerator(KeyStroke.getKeyStroke('G', InputEvent.CTRL_DOWN_MASK));
+        stackItem.setAccelerator(KeyStroke.getKeyStroke('S', InputEvent.CTRL_DOWN_MASK));
+        settingsItem.setAccelerator(KeyStroke.getKeyStroke('T', InputEvent.CTRL_DOWN_MASK)); 
+
+        // Add items to the menu      
         menu.add(homeItem);
         menu.add(drawItem);
-        menu.add(stackItem); // Add Stack menu item
+        menu.add(stackItem); 
         menu.add(settingsItem);
         menuBar.add(menu);
         setJMenuBar(menuBar);
@@ -47,11 +55,11 @@ public class GeometryApp extends JFrame {
         settingsPanel.add(new JLabel("Settings Panel"));
 
         geometryFrame = new GeometryFrame();
-        stackPanel = new StackPanel(); // Initialize the StackPanel
+        stackPanel = new StackPanel(); 
 
         mainPanel.add(homePanel, "Home");
-        mainPanel.add(geometryFrame.getMainPanel(), "Draw");
-        mainPanel.add(stackPanel, "Stack"); // Add StackPanel to the main panel
+        mainPanel.add(geometryFrame.getMainPanel(), "Geometry");
+        mainPanel.add(stackPanel, "Stack"); 
         mainPanel.add(settingsPanel, "Settings");
 
         add(mainPanel);
@@ -278,7 +286,7 @@ class HomePanel extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        // Title at the top
+        // Title
         JLabel title = new JLabel("Welcome to the Geometry & Stack App!", SwingConstants.CENTER);
         title.setFont(new Font("SansSerif", Font.BOLD, 28));
         title.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
@@ -324,7 +332,7 @@ class HomePanel extends JPanel {
 
         add(centerPanel, BorderLayout.CENTER);
 
-        // Button at the bottom
+        // Button 
         JButton getStarted = new JButton("Get Started →");
         getStarted.setFont(new Font("SansSerif", Font.BOLD, 18));
         getStarted.setFocusPainted(false);
@@ -333,7 +341,7 @@ class HomePanel extends JPanel {
         getStarted.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         getStarted.addActionListener(e -> {
             CardLayout cl = (CardLayout) getParent().getLayout();
-            cl.show(getParent(), "Draw");
+            cl.show(getParent(), "Geometry");
         });
 
         JPanel buttonPanel = new JPanel();
