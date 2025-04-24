@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Create output directory if it doesn't exist
+mkdir -p out
+
+# Compile all Java files to the out directory
+javac -d out ./src/*.java
+
+# Run the main class
+java -cp out GeometryApp
