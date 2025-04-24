@@ -11,9 +11,9 @@ set "RED=%ESC%[91m"
 set "RESET=%ESC%[0m"
 
 :: Welcome message
-echo %CYAN%======================================%RESET%
-echo %CYAN%| PW 4 Java Builder && Runner Script |%RESET%
-echo %CYAN%======================================%RESET%
+echo "%CYAN%======================================%RESET%"
+echo "%CYAN%| PW 4 Java Builder && Runner Script |%RESET%"
+echo "%CYAN%======================================%RESET%"
 echo.
 
 :: Create output directory
@@ -21,9 +21,12 @@ if not exist out (
     mkdir out
 )
 
-:: Compile Java files
+:: Compile Java files (recursively)
 echo %YELLOW%Compiling Java files...%RESET%
-javac -d out .\src\*.java
+for /R src %%f in (*.java) do (
+    set "srcfiles=!srcfiles! %%f"
+)
+javac -d out !srcfiles!
 if errorlevel 1 (
     echo %RED%Compilation failed! Please check your code.%RESET%
     pause
@@ -59,4 +62,3 @@ if "%choice%"=="1" (
 )
 
 pause
-goto MENU
